@@ -62,6 +62,9 @@ public class Cobol2XML {
 		 * InputStream is = new FileInputStream("C:\\Users\\sgs442\\eclipse-workspace\\CobolParser1\\base.cbl")
 		 */
 
+    	System.out.println("arg[0]" + args[0]);
+    	System.out.println("arg[1]" + args[1]);
+    	
         try {
             MyLogger.setup();
         } catch (IOException e) {
