@@ -74,13 +74,27 @@ public class XMLPayload {
 		*/
 		String constantName = c.getConstantName();
 		if (constantName != null) {
-		this.addConstantValueElement( constantName, 
-		c.getConstantValue(), c.getLineNumber() );
-		//System.out.println("Got Section");
-		// Add contents of procedure division
+			this.addConstantValueElement( constantName, 
+			c.getConstantValue(), c.getLineNumber() );
+			//System.out.println("Got Section");
+			// Add contents of procedure division
 		} else {
-		//System.out.println("Comment Line null");
+			//System.out.println("Comment Line null");
 		} 
+		
+		/*
+		* add commentLine element
+		*/
+		String commentLine = c.getCommentLine();
+		if (commentLine != null) {
+			this.addCommentLineElement( commentLine );
+			//System.out.println("Got Section");
+			// Add contents of procedure division
+		} else {
+			//System.out.println("Comment Line null");
+		}
+
+		
 		/*
 		 *  add sectionName element
 		 */		
@@ -193,8 +207,6 @@ public class XMLPayload {
 			rootElement.appendChild(cobolname);
 		}
 	}
- 	
- 	
  	
  	void addSectionElement(String stringElement) {
 		//  Section element

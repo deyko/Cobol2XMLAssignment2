@@ -42,12 +42,13 @@ public class CobolParser {
 	 *         <object>COBOL</object> from a source code file.
 	 */
 	public Parser cobol() {
-		Alternation a = new Alternation();
+		Alternation a = new Alternation();	
+		Symbol fullstop = new Symbol('.');
+		fullstop.discard();
 		
 		a.add(constantValue() );
 		
-		Symbol fullstop = new Symbol('.');
-		fullstop.discard();
+		a.add(CommentLine());
 		
 		a.add( ProgramID() );
 		
@@ -60,7 +61,25 @@ public class CobolParser {
 		a.add(new Empty());
 		return a;
 	}
-	
+	/*
+	* Return a parser that will recognize the grammar:
+	* 
+	* ***--- comment text
+	*
+	*/
+	protected Parser CommentLine() {
+		//System.out.println("commentLine()");
+		Sequence s = new Sequence();
+		s.add(new Symbol("*")); 
+		s.add(new Symbol("*"));
+		s.add(new Symbol("*"));
+		s.add(new Symbol("-"));
+		s.add(new Symbol("-"));
+		s.add(new Symbol("-"));
+		s.add(new Word().setAssembler(new CommentLineAssembler()) );
+		//s.setAssembler(new CommentLineAssembler());
+		return s;
+	}
 	/*
 	* Return a parser that will recognize the grammar:
 	* 
