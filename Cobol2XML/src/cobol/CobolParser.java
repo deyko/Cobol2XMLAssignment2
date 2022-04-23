@@ -23,6 +23,7 @@ package cobol;
 import parse.Alternation;
 import parse.Empty;
 import parse.Parser;
+import parse.Repetition;
 import parse.Sequence;
 import parse.tokens.CaselessLiteral;
 import parse.tokens.Num;
@@ -70,14 +71,23 @@ public class CobolParser {
 	protected Parser CommentLine() {
 		//System.out.println("commentLine()");
 		Sequence s = new Sequence();
-		s.add(new Symbol("*")); 
-		s.add(new Symbol("*"));
-		s.add(new Symbol("*"));
-		s.add(new Symbol("-"));
-		s.add(new Symbol("-"));
-		s.add(new Symbol("-"));
-		s.add(new Word().setAssembler(new CommentLineAssembler()) );
-		//s.setAssembler(new CommentLineAssembler());
+		s.add(new Symbol("*").discard());
+		s.add(new Symbol("*").discard());
+		s.add(new Symbol("*").discard());
+		s.add(new Symbol("-").discard());
+		s.add(new Symbol("-").discard());
+		s.add(new Symbol("-").discard());
+		
+		Alternation alternation = new Alternation();
+		alternation.add(new Word());
+		alternation.add(new Symbol("("));
+		alternation.add(new Symbol(")"));
+		alternation.add(new Num());
+		
+		Repetition repe = new Repetition(alternation);		
+		s.add(repe);
+		
+		s.setAssembler(new CommentLineAssembler());
 		return s;
 	}
 	/*

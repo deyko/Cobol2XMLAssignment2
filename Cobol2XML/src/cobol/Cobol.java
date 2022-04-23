@@ -33,7 +33,9 @@ public class Cobol implements PubliclyCloneable {
 	protected int yearDateWritten = 0;
 	protected String constantName;
 	protected double constantValue;
+	protected String displayText;
 	protected int lineNumber = 0;
+	
 
 
 	/**
@@ -267,5 +269,11 @@ public class Cobol implements PubliclyCloneable {
 		buf.append(sectionName);
 		
 		return buf.toString();
+	}
+	public String getDisplayText() {
+		return displayText;
+	}
+	public void setDisplayText(String displayText) {
+		this.displayText = displayText;
 	}
 }
