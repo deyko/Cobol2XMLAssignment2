@@ -35,8 +35,10 @@ public class Cobol implements PubliclyCloneable {
 	protected double constantValue;
 	protected String displayText;
 	protected int lineNumber = 0;
+	protected String stringName;
+	protected String stringValue;
+	protected double stringSize;
 	
-
 
 	/**
 	 * Return a copy of this object.
@@ -198,7 +200,24 @@ public class Cobol implements PubliclyCloneable {
 		this.commentLine = commentLine;
 	}
 
-
+	public String getStringName() {
+		return stringName;
+	}
+	public void setStringName(String stringName) {
+		this.stringName = stringName;
+	}
+	public String getStringValue() {
+		return stringValue;
+	}
+	public void setStringValue(String stringValue) {
+		this.stringValue = stringValue;
+	}
+	public Double getStringSize() {
+		return stringSize;
+	}
+	public void setStringSize(double stringSize) {
+		this.stringSize = stringSize;
+	}
 
 	/**
 	 * Set the name of this cobol file.

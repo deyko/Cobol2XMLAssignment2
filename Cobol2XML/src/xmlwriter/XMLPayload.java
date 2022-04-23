@@ -22,7 +22,10 @@
 
 import cobol.*;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.StringWriter;
 
 import javax.xml.XMLConstants;
@@ -68,6 +71,17 @@ public class XMLPayload {
 	}
 	
 	public void addElements(Cobol c) {
+		/*
+		* add string variable element
+		*/
+		String stringVariableName = c.getStringName();
+		if (stringVariableName != null) {
+			this.addStringVariableValueElement( c.getStringName(), c.getStringSize(), c.getStringValue());
+			//System.out.println("Got Section");
+			// Add contents of procedure division
+		} else {
+			//System.out.println("String Name null");
+		}
 		/*
 		* add ConstantName element
 		*/
@@ -163,6 +177,7 @@ public class XMLPayload {
 		this.addDisplayElement(display);
 		} else {
 		}
+	
 
 	}
 	
@@ -171,6 +186,36 @@ public class XMLPayload {
 		if(displayString != null) {
 			Element cobolname = doc.createElement("Display");
 			cobolname.appendChild(doc.createTextNode(displayString));
+			rootElement.appendChild(cobolname);
+		}
+	}
+	
+	void addStringVariableValueElement(String stringVariableName, double stringVariableSize, String stringVariableValue) {
+		// String Variable Declaration
+		if(stringVariableName != null) {
+			Element cobolname = doc.createElement("Variable");
+			
+			// Insert name of the String Variable into XML file
+			Element nameID = doc.createElement("Variable");
+			Attr attrType1 = doc.createAttribute("Name" );
+			attrType1.setValue(stringVariableName);
+			nameID.setAttributeNode(attrType1);
+			cobolname.appendChild(nameID);
+			
+			// Insert how many bytes the String Variable can store into the XML file
+			Element sizeID = doc.createElement(stringVariableName);
+			Attr attrType2 = doc.createAttribute("VariableByteSize" );
+			attrType2.setValue(Double.toString(stringVariableSize));
+			sizeID.setAttributeNode(attrType2);
+			cobolname.appendChild(sizeID);
+			
+			// Insert the value of the String Variable into XML file
+			Element valueID = doc.createElement("Variable");
+			Attr attrType3 = doc.createAttribute("Value" );
+			attrType3.setValue(stringVariableValue);
+			valueID.setAttributeNode(attrType3);
+			cobolname.appendChild(valueID);
+			
 			rootElement.appendChild(cobolname);
 		}
 	}
@@ -275,6 +320,7 @@ public class XMLPayload {
 		}
 	}
 	
+	
 	public void writeFile(String filename) {
 		try {
 		// write the content into xml file
@@ -307,5 +353,32 @@ public class XMLPayload {
 	         e.printStackTrace();
 	     }
 	}
+
+	public String returnXMLContents() {
+		try {
+        TransformerFactory transformerFactory =
+        TransformerFactory.newInstance();
+        Transformer transformer =
+        transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        DOMSource source = new DOMSource(doc);
+
+        StreamResult result =
+                new StreamResult(new File("test.xml"));
+        transformer.transform(source, result);
+        
+        String output = "", input = "";
+        BufferedReader in = new BufferedReader(new FileReader("test.xml"));
+        while((input = in.readLine()) != null) {
+        	output += input;
+        }    
+        return output;
+		 } catch (Exception e) {
+	         e.printStackTrace();
+	     }
+		return "erroooorrr";
+	}
+	
 
 }

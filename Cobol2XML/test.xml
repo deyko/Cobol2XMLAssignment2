@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cobol>
+    <Variable>
+        <Variable Name="hex_dec_data"/>
+        <hex_dec_data VariableByteSize="48.0"/>
+        <Variable Value="10B11C12D13E14F15"/>
+    </Variable>
+</cobol>

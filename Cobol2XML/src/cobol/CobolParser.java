@@ -62,6 +62,8 @@ public class CobolParser {
 		
 		a.add(Display());
 		
+		a.add(StringDeclaration());
+		
 		a.add(new Empty());
 		return a;
 	}
@@ -199,7 +201,6 @@ public class CobolParser {
 		t.wordState().setWordChars(' ', ' ', false);
 		return t;
 	}
-	
 
 	/*
 	* Return a parser that will recog the grammar:
@@ -220,6 +221,24 @@ public class CobolParser {
 		sequence.setAssembler(new DisplayAssembler());
 		return sequence;
 	}
+	
+	protected Parser StringDeclaration() {
+		Sequence sequence = new Sequence();
+		sequence.add(new Num());
+		sequence.add(new Word());
+		sequence.add(new CaselessLiteral("pic"));
+		sequence.add(new CaselessLiteral("x"));
+		sequence.add(new Symbol("("));
+		sequence.add(new Num());
+		sequence.add(new Symbol(")"));
+		sequence.add(new CaselessLiteral("value"));
+		sequence.add(new QuotedString());
+		
+		sequence.setAssembler(new StringAssembler());
+		return sequence;
+	}
+	
+	
 	
 
 
