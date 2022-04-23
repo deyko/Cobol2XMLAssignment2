@@ -1,6 +1,6 @@
-abr 23, 2022 8:16:07 P. M. cobol.Cobol2XML main
+abr 23, 2022 8:35:10 P. M. cobol.Cobol2XML main
 INFORMACIÓN: Cobol2XML V0.1.0
-abr 23, 2022 8:16:07 P. M. xmlwriter.XMLPayload writeFile
+abr 23, 2022 8:35:10 P. M. xmlwriter.XMLPayload writeFile
 INFORMACIÓN: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cobol>
     <division>identification</division>
@@ -31,6 +31,11 @@ INFORMACIÓN: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <base_16 Value="16.0"/>
     </Constant>
     <division>procedure</division>
+    <Display>window erase</Display>
+    <Display>"Base:  " no</Display>
+    <Display>"Value: " no</Display>
+    <Display>"Decimal  value: " entry_char</Display>
+    <Display>"Base: " current_base " value: " entry_char</Display>
     <comment>convert from decimal to base system</comment>
     <comment>convert from base to dicimal system</comment>
     <comment>allineamento a destra della variabile entry_char ( ver 2.3 0.1 o sup )</comment>

@@ -5,10 +5,7 @@ import parse.*;
 import parse.tokens.*;
 
 public class DisplayAssembler extends Assembler {
-	/**
-	* This Display Assembler removes the COBOL display syntax and takes the text to display so it is ready to
-	* be displayed in XML.
-	*/
+	//The DisplayAssembler functionality: Cobol display syntax is removed and gets the text to display it in the XML source file.
 	public void workOn(Assembly a) {
 		Cobol c = new Cobol();	
 		Stack assemblyStack = a.getStack();

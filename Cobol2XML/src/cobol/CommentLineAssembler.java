@@ -31,11 +31,9 @@ public class CommentLineAssembler extends Assembler {
 			String stringArray[] = stringComment.split(" "), unreverComment = ""; 
 		    for (int i = stringArray.length - 1; i >=0; i--) { 
 		    	unreverComment += stringArray[i] + " ";
-		    }
-		    
-		    // Remove the two extra spaces at the end of the reversed string.
-		    unreverComment = unreverComment.substring(0, unreverComment.length() - 2);
-			
+		    }	    
+		    // Remove the two extra spaces
+		    unreverComment = unreverComment.substring(0, unreverComment.length() - 2);		
 			c.setCommentLine(unreverComment);
 			a.setTarget(c);
 		}
