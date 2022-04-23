@@ -67,7 +67,6 @@ public class XMLPayload {
 		
 	}
 	
-	
 	public void addElements(Cobol c) {
 		/*
 		* add ConstantName element
@@ -155,9 +154,26 @@ public class XMLPayload {
 		if(yearDateWritten != 0) {
 			this.addYearDateWrittenElement( yearDateWritten );
 		}
+		
+		/*
+		* add display element
+		*/
+		String display = c.getDisplayText();
+		if (display != null) {
+		this.addDisplayElement(display);
+		} else {
+		}
 
 	}
 	
+	void addDisplayElement(String displayString) {
+		// Display command element
+		if(displayString != null) {
+			Element cobolname = doc.createElement("Display");
+			cobolname.appendChild(doc.createTextNode(displayString));
+			rootElement.appendChild(cobolname);
+		}
+	}
 
 	 void addConstantValueElement(String constantName,  double constantValue, int lineNumber) {  
 		 //  Program ID element

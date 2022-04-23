@@ -27,6 +27,7 @@ import parse.Repetition;
 import parse.Sequence;
 import parse.tokens.CaselessLiteral;
 import parse.tokens.Num;
+import parse.tokens.QuotedString;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
 import parse.tokens.Word;
@@ -58,6 +59,8 @@ public class CobolParser {
 		a.add( SectionName() );
 		
 		a.add( DateWritten() );
+		
+		a.add(Display());
 		
 		a.add(new Empty());
 		return a;
@@ -196,5 +199,30 @@ public class CobolParser {
 		t.wordState().setWordChars(' ', ' ', false);
 		return t;
 	}
+	
+
+	/*
+	* Return a parser that will recog the grammar:
+	*
+	* display <Text to Display>
+	*
+	*/
+	protected Parser Display() {
+		Sequence sequence = new Sequence();
+		sequence.add(new CaselessLiteral("display").discard());
+		
+		Alternation alternation = new Alternation();
+		alternation.add(new Word());
+		alternation.add(new QuotedString());		
+		Repetition repetition = new Repetition(alternation);
+		
+		sequence.add(repetition);		
+		sequence.setAssembler(new DisplayAssembler());
+		return sequence;
+	}
+	
+
+
+	
 
 }
