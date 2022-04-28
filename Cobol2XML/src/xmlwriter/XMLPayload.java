@@ -42,9 +42,6 @@ import org.w3c.dom.Element;
 import java.util.logging.Logger;
 import org.w3c.dom.Attr;
 
-
-
-
 public class XMLPayload {
 	Document doc;
 	Element rootElement;
@@ -178,6 +175,15 @@ public class XMLPayload {
 		} else {
 		}
 	
+		/*
+		* add string variable element
+		*/
+		String StringVariableName = c.getDecimalName();
+		if (StringVariableName != null) {
+			this.addDecimalVariableValueElement( c.getDecimalName(), c.getDecimalAllNumbers());
+		} else {
+		}
+		
 
 	}
 	
@@ -190,6 +196,28 @@ public class XMLPayload {
 		}
 	}
 	
+	void addDecimalVariableValueElement(String decimalVariableName, double decimalVariableWholeNumbers) {
+		// Decimal Variable Declaration
+		if(decimalVariableName != null) {
+			Element cobolname = doc.createElement("Variable");
+			
+			// insert name of the variable into XML file
+			Element nameID = doc.createElement("Variable");
+			Attr attrType1 = doc.createAttribute("Name" );
+			attrType1.setValue( decimalVariableName );
+			nameID.setAttributeNode(attrType1);
+			cobolname.appendChild(nameID);
+			
+			// insert how many whole numbers the variable can store into XML file
+			Element sizeID = doc.createElement(decimalVariableName);
+			Attr attrType2 = doc.createAttribute("MaxWholeNumbers" );
+			attrType2.setValue( Double.toString(decimalVariableWholeNumbers) );
+			sizeID.setAttributeNode(attrType2);
+			cobolname.appendChild(sizeID);
+			
+			rootElement.appendChild(cobolname);
+		}
+	}
 	void addStringVariableValueElement(String stringVariableName, double stringVariableSize, String stringVariableValue) {
 		// String Variable Declaration
 		if(stringVariableName != null) {
@@ -379,6 +407,8 @@ public class XMLPayload {
 	     }
 		return "erroooorrr";
 	}
+	
+
 	
 
 }

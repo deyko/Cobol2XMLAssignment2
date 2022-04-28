@@ -1,6 +1,6 @@
-abr 23, 2022 11:32:52 P. M. cobol.Cobol2XML main
+abr 26, 2022 6:52:21 P. M. cobol.Cobol2XML main
 INFORMACIÓN: Cobol2XML V0.1.0
-abr 23, 2022 11:32:52 P. M. xmlwriter.XMLPayload writeFile
+abr 26, 2022 6:52:21 P. M. xmlwriter.XMLPayload writeFile
 INFORMACIÓN: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cobol>
     <division>identification</division>
@@ -10,6 +10,18 @@ INFORMACIÓN: <?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <year-date-written>1995</year-date-written>
     <division>data</division>
     <section>working-storage</section>
+    <Variable>
+        <Variable Name="w_number"/>
+        <w_number MaxWholeNumbers="16.0"/>
+    </Variable>
+    <Variable>
+        <Variable Name="entry_number"/>
+        <entry_number MaxWholeNumbers="16.0"/>
+    </Variable>
+    <Variable>
+        <Variable Name="current_base"/>
+        <current_base MaxWholeNumbers="2.0"/>
+    </Variable>
     <Constant>
         <Constant Name="base_2"/>
         <base_2 Line_Number="88"/>

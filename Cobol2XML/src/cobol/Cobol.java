@@ -38,6 +38,8 @@ public class Cobol implements PubliclyCloneable {
 	protected String stringName;
 	protected String stringValue;
 	protected double stringSize;
+	protected String decimalName;
+	protected double decimalAllNumbers;
 	
 
 	/**
@@ -116,8 +118,6 @@ public class Cobol implements PubliclyCloneable {
 	public String getCommentLine() {
 		return commentLine;
 	}
-	
-	
 	public String getConstantName() {
 		return constantName;
 	}
@@ -294,5 +294,17 @@ public class Cobol implements PubliclyCloneable {
 	}
 	public void setDisplayText(String displayText) {
 		this.displayText = displayText;
+	}
+	public String getDecimalName() {
+		return decimalName;
+	}
+	public void setDecimalName(String decimalName) {
+		this.decimalName = decimalName;
+	}
+	public double getDecimalAllNumbers() {
+		return decimalAllNumbers;
+	}
+	public void setDecimalAllNumbers(double decimalAllNumbers) {
+		this.decimalAllNumbers = decimalAllNumbers;
 	}
 }

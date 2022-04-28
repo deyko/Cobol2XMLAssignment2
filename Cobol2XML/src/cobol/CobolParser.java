@@ -64,6 +64,8 @@ public class CobolParser {
 		
 		a.add(StringDeclaration());
 		
+		a.add(VariableDeclaration());
+		
 		a.add(new Empty());
 		return a;
 	}
@@ -95,38 +97,41 @@ public class CobolParser {
 		s.setAssembler(new CommentLineAssembler());
 		return s;
 	}
-	/*
-	* Return a parser that will recognize the grammar:
-	* 
-	* <line number> <contstant name> "value" <constant value>.
-	*
-	*/
+
 	protected Parser constantValue() {
 		//System.out.println("constantValue()");
-		Sequence s = new Sequence();
-		s.add(new Num() );
-		s.add(new Word() );
-		s.add(new CaselessLiteral("value") );
-		s.add(new Num() );
-		s.setAssembler(new ConstantValueAssembler());
-		return s;
+		Sequence sequence = new Sequence();
+		sequence.add(new Num() );
+		sequence.add(new Word() );
+		sequence.add(new CaselessLiteral("value") );
+		sequence.add(new Num() );
+		sequence.setAssembler(new ConstantValueAssembler());
+		return sequence;
 	}
 
-	/*
-	 * Return a parser that will recognize the grammar:
-	 * 
-	 *    Program Identifier = Word
-	 *
-	 */
+
 	protected Parser ProgramID() {
-		Sequence s = new Sequence();
-		s.add(new CaselessLiteral("program-id") );
-		s.add(new Symbol('.').discard());	
-		s.add(new Word().setAssembler(new Program_idAssembler()));
-		return s;
+		Sequence sequence = new Sequence();
+		sequence.add(new CaselessLiteral("program-id") );
+		sequence.add(new Symbol('.').discard());	
+		sequence.add(new Word().setAssembler(new Program_idAssembler()));
+		return sequence;
 	}
 
-
+	protected Parser VariableDeclaration() {
+		Sequence sequence = new Sequence();
+		sequence.add(new Num());
+		sequence.add(new Word());
+		sequence.add(new CaselessLiteral("pic"));
+		sequence.add(new Num());
+		sequence.add(new Symbol("("));
+		sequence.add(new Num());
+		sequence.add(new Symbol(")"));
+		
+		sequence.setAssembler(new VariableAssembler());
+		return sequence;
+	}
+	
 
 	/*
 	 * Return a parser that will recognise the grammar:
