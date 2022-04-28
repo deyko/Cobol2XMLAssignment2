@@ -7,11 +7,8 @@ import parse.*;
 public class StringAssembler extends Assembler {
 
 	public void workOn(Assembly a) {
-		Cobol c = new Cobol();
-		
-		// Value of string variable
+		Cobol c = new Cobol();	
 		Token token = (Token) a.pop();
-		// Remove '&quot;' characters
 		String quotedString = token.sval();
 		quotedString = quotedString.replace("\"", "");		
 		c.setStringValue(quotedString);			
